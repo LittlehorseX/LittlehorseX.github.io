@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://littlehorsex.com">
-  <title>LittlehorseX</title>
+  <title>JavaScript 运行机制---a | LittlehorseX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LittlehorseX">
-<meta property="og:url" content="http://littlehorsex.com/index.html">
+  <meta name="description" content="工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——JavaScript 运行机制—q，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。
+123456789function f1()&amp;#123;　var n=999;       // n为f1函数的内部变量，外部无法访问　function f2()&amp;#123;    // f2为f1的内部函数，可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 运行机制---a">
+<meta property="og:url" content="http://littlehorsex.com/2017/03/04/JavaScript-运行机制-a/index.html">
 <meta property="og:site_name" content="LittlehorseX">
+<meta property="og:description" content="工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——JavaScript 运行机制—q，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。
+123456789function f1()&amp;#123;　var n=999;       // n为f1函数的内部变量，外部无法访问　function f2()&amp;#123;    // f2为f1的内部函数，可以">
+<meta property="og:updated_time" content="2017-03-04T06:31:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LittlehorseX">
+<meta name="twitter:title" content="JavaScript 运行机制---a">
+<meta name="twitter:description" content="工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——JavaScript 运行机制—q，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。
+123456789function f1()&amp;#123;　var n=999;       // n为f1函数的内部变量，外部无法访问　function f2()&amp;#123;    // f2为f1的内部函数，可以">
   
     <link rel="alternative" href="/atom.xml" title="LittlehorseX" type="application/atom+xml">
   
@@ -142,81 +149,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-JavaScript-运行机制-q" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-JavaScript-运行机制-a" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/04/JavaScript-运行机制-q/">JavaScript 运行机制---q</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/04/JavaScript-运行机制-q/" class="archive-article-date">
-  	<time datetime="2017-03-04T06:05:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">  <span class="built_in">console</span>.log(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>// 0 1 2 3 4<br>
-        
-          
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">习得</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/04/JavaScript-运行机制-q/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-JavaScript-运行机制-a" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/04/JavaScript-运行机制-a/">JavaScript 运行机制---a</a>
+    <h1 class="article-title" itemprop="name">
+      JavaScript 运行机制---a
     </h1>
   
 
@@ -229,11 +169,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——<a href="https://littlehorsex.github.io/2017/03/04/JavaScript-%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6-q/">JavaScript 运行机制—q</a>，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。</p>
+        <p>工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——<a href="https://littlehorsex.github.io/2017/03/04/JavaScript-%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6-q/" target="_blank" rel="external">JavaScript 运行机制—q</a>，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　<span class="keyword">var</span> n=<span class="number">999</span>;       <span class="comment">// n为f1函数的内部变量，外部无法访问</span></div><div class="line">　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;    <span class="comment">// f2为f1的内部函数，可以访问f1的内部变量，只要返回f2，外部也可以访问f1的内部变量了</span></div><div class="line">　　alert(n); </div><div class="line">　&#125;</div><div class="line">　<span class="keyword">return</span> f2;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> result=f1();</div><div class="line">result(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
-        
-          
-        
+<a id="more"></a>
+<p>F2函数就是闭包，闭包就是能够读取其他函数内部变量的函数，是把函数内部和外部连接的桥梁。</p>
+<p>闭包的作用有两个：一是可以读取函数内部的变量，二是让这些变量的值始终存在内存中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　nAdd=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;n+=<span class="number">1</span>&#125;</div><div class="line">　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　alert(n);</div><div class="line">　&#125;</div><div class="line">    <span class="keyword">return</span> f2;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> result=f1();</div><div class="line">result(); <span class="comment">// 999</span></div><div class="line">nAdd();</div><div class="line">result(); <span class="comment">// 1000</span></div></pre></td></tr></table></figure>
+<p>这段代码中，rusult实际上就是闭包函数f2，他一共运行了两次，第一次为999，第二次为1000，这证明了函数f1的局部变量n一直保存在内存中，并没有在f1调用之后被自动清除。原因是，f1是f2的父函数，而f2赋值给了一个全局变量，导致f2始终在内存中，而f2始终依赖于f1，因此f1也始终在内存中，不会在调用后被垃圾回收机制回收。</p>
+<p>闭包的大概内容就到此为止，下面，我们来学习一下js的运行机制。</p>
+<p>js的一大特点就是单线程，也就是同一时间只能做一件事。单线程就意味着所有任务需要排队，前一个任务结束才会进行下一个任务。当任务需要IO设备时，（比如等着ajax操作获取数据）虽然CPU是空闲状态，但不得不等着结果返回才能进行下一个任务。这时，主线程完全可以不管IO设备，挂起等待中的任务，先运行排在后面的任务，等IO设备返回了结果，再把挂起的任务继续执行。</p>
+<p>因此，所有任务可以分为两种，一种同步任务，一种异步任务。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行结束，才能执行后一个任务。异步任务指的是，不进入主线程，而进入“任务队列”的任务，只有“任务队列”通知主线程，该任务可以执行，才进入主线程。</p>
+<blockquote>
+<ul>
+<li>所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。</li>
+<li>主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。</li>
+<li>一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</li>
+<li>主线程不断重复上面的第三步。</li>
+</ul>
+</blockquote>
+<p>“任务队列”中的事件，除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）。只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。</p>
+<p>所谓”回调函数”（callback），就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。</p>
+<p>主线程从”任务队列”中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。</p>
+<p>除了放置异步任务的事件，”任务队列”还可以放置定时事件，即指定某些代码在多少时间之后执行。</p>
+
       
 
       
@@ -255,10 +213,6 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/04/JavaScript-运行机制-a/">more >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
@@ -266,7 +220,25 @@
   </div>
 </article>
 
-
+  
+<nav id="article-nav">
+  
+    <a href="/2017/03/04/JavaScript-运行机制-q/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          JavaScript 运行机制---q
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/03/二狗/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">二狗</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
@@ -274,121 +246,10 @@
 
 
   
-    <article id="post-二狗" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/03/二狗/">二狗</a>
-    </h1>
+    <div class="duoshuo"></div>
   
 
-        
-        <a href="/2017/03/03/二狗/" class="archive-article-date">
-  	<time datetime="2017-03-03T06:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/03/二狗/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/03/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/03/hello-world/" class="archive-article-date">
-  	<time datetime="2017-03-03T05:57:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.<br>
-        
-          
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/03/hello-world/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-  
 
 
           </div>
@@ -410,8 +271,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

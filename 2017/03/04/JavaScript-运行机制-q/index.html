@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://littlehorsex.com">
-  <title>LittlehorseX</title>
+  <title>JavaScript 运行机制---q | LittlehorseX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LittlehorseX">
-<meta property="og:url" content="http://littlehorsex.com/index.html">
+  <meta name="description" content="123for (var i = 0; i &amp;lt; 5; i++) &amp;#123;  console.log(i);&amp;#125;
+// 0 1 2 3 4">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 运行机制---q">
+<meta property="og:url" content="http://littlehorsex.com/2017/03/04/JavaScript-运行机制-q/index.html">
 <meta property="og:site_name" content="LittlehorseX">
+<meta property="og:description" content="123for (var i = 0; i &amp;lt; 5; i++) &amp;#123;  console.log(i);&amp;#125;
+// 0 1 2 3 4">
+<meta property="og:updated_time" content="2017-03-04T06:31:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LittlehorseX">
+<meta name="twitter:title" content="JavaScript 运行机制---q">
+<meta name="twitter:description" content="123for (var i = 0; i &amp;lt; 5; i++) &amp;#123;  console.log(i);&amp;#125;
+// 0 1 2 3 4">
   
     <link rel="alternative" href="/atom.xml" title="LittlehorseX" type="application/atom+xml">
   
@@ -142,16 +149,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-JavaScript-运行机制-q" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-JavaScript-运行机制-q" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/04/JavaScript-运行机制-q/">JavaScript 运行机制---q</a>
+    <h1 class="article-title" itemprop="name">
+      JavaScript 运行机制---q
     </h1>
   
 
@@ -165,10 +170,24 @@
     <div class="article-entry" itemprop="articleBody">
       
         <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">  <span class="built_in">console</span>.log(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>// 0 1 2 3 4<br>
-        
-          
-        
+<p>// 0 1 2 3 4<br><a id="more"></a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">  &#125;, <span class="number">1000</span> * i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>// 5 5 5 5 5  开始输出一个 5，然后每隔一秒再输出一个 5，一共 5 个 5</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(i);</div><div class="line">    &#125;, i * <span class="number">1000</span>);</div><div class="line">  &#125;)(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>// 0 1 2 3 4 闭包，内部对 i 保持引用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(i);</div><div class="line">    &#125;, i * <span class="number">1000</span>);</div><div class="line">  &#125;)(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>// 5 5 5 5 5 内部没有对i引用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">  setTimeout((<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">  &#125;)(i), i * <span class="number">1000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>// 0 1 2 3 4  立即执行函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">1</span>)</div><div class="line">&#125;, <span class="number">0</span>);</div><div class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> <span class="title">executor</span>(<span class="params">resolve</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>);</div><div class="line">  <span class="keyword">for</span>( <span class="keyword">var</span> i=<span class="number">0</span> ; i&lt;<span class="number">10000</span> ; i++ ) &#123;</div><div class="line">    i == <span class="number">9999</span> &amp;&amp; resolve();</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">3</span>);</div><div class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">4</span>);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">console</span>.log(<span class="number">5</span>);</div></pre></td></tr></table></figure>
+<p>这道题应该考察 JavaScript 的运行机制的，让我理一下思路。</p>
+<p>首先先碰到一个 setTimeout，于是会先设置一个定时，在定时结束后将传递这个函数放到任务队列里面，因此开始肯定不会输出 1 。</p>
+<p>然后是一个 Promise，里面的函数是直接执行的，因此应该直接输出 2 3 。</p>
+<p>然后，Promise 的 then 应当会放到当前 tick 的最后，但是还是在当前 tick 中。</p>
+<p>因此，应当先输出 5，然后再输出 4 。</p>
+<p>最后在到下一个 tick，就是 1 。</p>
+<p>“2 3 5 4 1”</p>
+
       
 
       
@@ -190,10 +209,6 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/04/JavaScript-运行机制-q/">more >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
@@ -201,7 +216,16 @@
   </div>
 </article>
 
-
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/04/JavaScript-运行机制-a/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaScript 运行机制---a</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
@@ -209,186 +233,10 @@
 
 
   
-    <article id="post-JavaScript-运行机制-a" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/04/JavaScript-运行机制-a/">JavaScript 运行机制---a</a>
-    </h1>
+    <div class="duoshuo"></div>
   
 
-        
-        <a href="/2017/03/04/JavaScript-运行机制-a/" class="archive-article-date">
-  	<time datetime="2017-03-04T06:05:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——<a href="https://littlehorsex.github.io/2017/03/04/JavaScript-%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6-q/">JavaScript 运行机制—q</a>，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　<span class="keyword">var</span> n=<span class="number">999</span>;       <span class="comment">// n为f1函数的内部变量，外部无法访问</span></div><div class="line">　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;    <span class="comment">// f2为f1的内部函数，可以访问f1的内部变量，只要返回f2，外部也可以访问f1的内部变量了</span></div><div class="line">　　alert(n); </div><div class="line">　&#125;</div><div class="line">　<span class="keyword">return</span> f2;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> result=f1();</div><div class="line">result(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
-        
-          
-        
-      
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">习得</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/04/JavaScript-运行机制-a/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-二狗" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/03/二狗/">二狗</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/03/二狗/" class="archive-article-date">
-  	<time datetime="2017-03-03T06:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/03/二狗/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/03/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/03/hello-world/" class="archive-article-date">
-  	<time datetime="2017-03-03T05:57:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.<br>
-        
-          
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/03/hello-world/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-  
 
 
           </div>
@@ -410,8 +258,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
