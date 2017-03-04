@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="LittlehorseX">
 <meta property="og:description" content="123for (var i = 0; i &amp;lt; 5; i++) &amp;#123;  console.log(i);&amp;#125;
 // 0 1 2 3 4">
-<meta property="og:updated_time" content="2017-03-04T06:33:18.000Z">
+<meta property="og:updated_time" content="2017-03-04T07:02:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 运行机制---q">
 <meta name="twitter:description" content="123for (var i = 0; i &amp;lt; 5; i++) &amp;#123;  console.log(i);&amp;#125;
@@ -186,13 +186,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</div><div class="line">  setTimeout((<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">  &#125;)(i), i * <span class="number">1000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>// 0 1 2 3 4  立即执行函数</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">1</span>)</div><div class="line">&#125;, <span class="number">0</span>);</div><div class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> <span class="title">executor</span>(<span class="params">resolve</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>);</div><div class="line">  <span class="keyword">for</span>( <span class="keyword">var</span> i=<span class="number">0</span> ; i&lt;<span class="number">10000</span> ; i++ ) &#123;</div><div class="line">    i == <span class="number">9999</span> &amp;&amp; resolve();</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">3</span>);</div><div class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">4</span>);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">console</span>.log(<span class="number">5</span>);</div></pre></td></tr></table></figure>
-<p>这道题应该考察 JavaScript 的运行机制的，让我理一下思路。</p>
-<p>首先先碰到一个 setTimeout，于是会先设置一个定时，在定时结束后将传递这个函数放到任务队列里面，因此开始肯定不会输出 1 。</p>
-<p>然后是一个 Promise，里面的函数是直接执行的，因此应该直接输出 2 3 。</p>
-<p>然后，Promise 的 then 应当会放到当前 tick 的最后，但是还是在当前 tick 中。</p>
-<p>因此，应当先输出 5，然后再输出 4 。</p>
-<p>最后在到下一个 tick，就是 1 。</p>
-<p>“2 3 5 4 1”</p>
+<p>这道题应该考察 JavaScript 的运行机制的，让我理一下思路。<br>首先先碰到一个 setTimeout，于是会先设置一个定时，在定时结束后将传递这个函数放到任务队列里面，因此开始肯定不会输出 1 。<br>然后是一个 Promise，里面的函数是直接执行的，因此应该直接输出 2 3 。<br>然后，Promise 的 then 应当会放到当前 tick 的最后，但是还是在当前 tick 中。<br>因此，应当先输出 5，然后再输出 4 。<br>最后在到下一个 tick，就是 1 。<br>“2 3 5 4 1”</p>
 
       
 
@@ -224,6 +218,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/03/04/算法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          算法
+        
+      </div>
+    </a>
   
   
     <a href="/2017/03/04/JavaScript-运行机制-a/" id="article-nav-older" class="article-nav-link-wrap">
