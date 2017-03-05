@@ -8,19 +8,16 @@
   <link rel="dns-prefetch" href="http://littlehorsex.com">
   <title>JavaScript 运行机制---a | LittlehorseX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——JavaScript 运行机制—q，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。
-123456789function f1()&amp;#123;　var n=999;       // n为f1函数的内部变量，外部无法访问　function f2()&amp;#123;    // f2为f1的内部函数，可以">
+  <meta name="description" content="工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——JavaScript 运行机制—q，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript 运行机制---a">
 <meta property="og:url" content="http://littlehorsex.com/2017/03/04/JavaScript-运行机制-a/index.html">
 <meta property="og:site_name" content="LittlehorseX">
-<meta property="og:description" content="工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——JavaScript 运行机制—q，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。
-123456789function f1()&amp;#123;　var n=999;       // n为f1函数的内部变量，外部无法访问　function f2()&amp;#123;    // f2为f1的内部函数，可以">
-<meta property="og:updated_time" content="2017-03-04T07:02:40.000Z">
+<meta property="og:description" content="工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——JavaScript 运行机制—q，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。">
+<meta property="og:updated_time" content="2017-03-05T02:38:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 运行机制---a">
-<meta name="twitter:description" content="工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——JavaScript 运行机制—q，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。
-123456789function f1()&amp;#123;　var n=999;       // n为f1函数的内部变量，外部无法访问　function f2()&amp;#123;    // f2为f1的内部函数，可以">
+<meta name="twitter:description" content="工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——JavaScript 运行机制—q，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。">
   
     <link rel="alternative" href="/atom.xml" title="LittlehorseX" type="application/atom+xml">
   
@@ -176,8 +173,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——<a href="https://littlehorsex.github.io/2017/03/04/JavaScript-%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6-q/" target="_blank" rel="external">JavaScript 运行机制—q</a>，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　<span class="keyword">var</span> n=<span class="number">999</span>;       <span class="comment">// n为f1函数的内部变量，外部无法访问</span></div><div class="line">　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;    <span class="comment">// f2为f1的内部函数，可以访问f1的内部变量，只要返回f2，外部也可以访问f1的内部变量了</span></div><div class="line">　　alert(n); </div><div class="line">　&#125;</div><div class="line">　<span class="keyword">return</span> f2;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> result=f1();</div><div class="line">result(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
 <a id="more"></a>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　<span class="keyword">var</span> n=<span class="number">999</span>;       <span class="comment">// n为f1函数的内部变量，外部无法访问</span></div><div class="line">　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;    <span class="comment">// f2为f1的内部函数，可以访问f1的内部变量，只要返回f2，外部也可以访问f1的内部变量了</span></div><div class="line">　　alert(n); </div><div class="line">　&#125;</div><div class="line">　<span class="keyword">return</span> f2;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> result=f1();</div><div class="line">result(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
 <p>F2函数就是闭包，闭包就是能够读取其他函数内部变量的函数，是把函数内部和外部连接的桥梁。</p>
 <p>闭包的作用有两个：一是可以读取函数内部的变量，二是让这些变量的值始终存在内存中。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　nAdd=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;n+=<span class="number">1</span>&#125;</div><div class="line">　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　alert(n);</div><div class="line">　&#125;</div><div class="line">    <span class="keyword">return</span> f2;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> result=f1();</div><div class="line">result(); <span class="comment">// 999</span></div><div class="line">nAdd();</div><div class="line">result(); <span class="comment">// 1000</span></div></pre></td></tr></table></figure>

@@ -286,7 +286,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>工作做完的闲暇之余逛了segmentfault，发现了一篇有意思的文章——<a href="https://littlehorsex.github.io/2017/03/04/JavaScript-%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6-q/">JavaScript 运行机制—q</a>，发现自己对javascript的闭包以及运行机制并不了解，特查资料，整理。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　<span class="keyword">var</span> n=<span class="number">999</span>;       <span class="comment">// n为f1函数的内部变量，外部无法访问</span></div><div class="line">　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;    <span class="comment">// f2为f1的内部函数，可以访问f1的内部变量，只要返回f2，外部也可以访问f1的内部变量了</span></div><div class="line">　　alert(n); </div><div class="line">　&#125;</div><div class="line">　<span class="keyword">return</span> f2;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> result=f1();</div><div class="line">result(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
         
           
         
@@ -350,7 +349,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="吃"><a href="#吃" class="headerlink" title="吃"></a>吃</h3><blockquote>
+        <hr>
+<h3 id="吃"><a href="#吃" class="headerlink" title="吃"></a>吃</h3><blockquote>
 <h5 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h5><p>铁板自助<br>潮汕牛肉火锅</p>
 <h5 id="待吃"><a href="#待吃" class="headerlink" title="待吃"></a>待吃</h5><p>海鲜自助<br>虾吃虾涮<br>日本料理</p>
 </blockquote>
