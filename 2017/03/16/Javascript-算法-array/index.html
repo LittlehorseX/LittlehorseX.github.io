@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://littlehorsex.com/2017/03/16/Javascript-算法-array/index.html">
 <meta property="og:site_name" content="LittlehorseX">
 <meta property="og:description" content="普通数组">
-<meta property="og:updated_time" content="2017-03-16T13:19:24.000Z">
+<meta property="og:updated_time" content="2017-03-16T13:54:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javascript-算法-array">
 <meta name="twitter:description" content="普通数组">
@@ -294,6 +294,7 @@
 </tr>
 </tbody>
 </table>
+<h5 id="循环队列——击鼓传花"><a href="#循环队列——击鼓传花" class="headerlink" title="循环队列——击鼓传花"></a>循环队列——击鼓传花</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">hotPotato</span>(<span class="params">nameList, num</span>)</span>&#123;</div><div class="line">   <span class="keyword">var</span> queue = <span class="keyword">new</span> Queue();</div><div class="line">   <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;nameList.length; i++)&#123;</div><div class="line">     queue.enqueue(nameList[i]); </div><div class="line">     <span class="comment">// 得到一份名单，把里面的名字全都加入队列</span></div><div class="line">   &#125;</div><div class="line">   <span class="keyword">var</span> eliminated = <span class="string">''</span>;</div><div class="line">   <span class="keyword">while</span> (queue.size() &gt; <span class="number">1</span>)&#123;</div><div class="line">     <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;num; i++)&#123;</div><div class="line">       queue.enqueue(queue.dequeue()); </div><div class="line">       <span class="comment">// 给定一个数字，然后迭代队列。从队列开头移除一项，再将其添加到队列末尾</span></div><div class="line">     &#125;</div><div class="line">     eliminated = queue.dequeue(); </div><div class="line">     <span class="comment">// 一旦传递次数达到给定的数字，拿着花的那个人就被淘汰了</span></div><div class="line">     <span class="built_in">console</span>.log(eliminated + <span class="string">'在击鼓传花游戏中被淘汰。'</span>);</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">return</span> queue.dequeue();</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">var</span> names = [<span class="string">'John'</span>,<span class="string">'Jack'</span>,<span class="string">'Camila'</span>,<span class="string">'Ingrid'</span>,<span class="string">'Carl'</span>];</div><div class="line"> <span class="keyword">var</span> winner = hotPotato(names, <span class="number">7</span>); <span class="built_in">console</span>.log(<span class="string">'胜利者:'</span> + winner);</div></pre></td></tr></table></figure>
 
       
 
@@ -307,7 +308,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习JavaScript数据结构与算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
         		</li>
       		
 		</ul>
@@ -325,6 +326,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/03/16/Javascript-算法-linked-list/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Javascript-算法-linked list
+        
+      </div>
+    </a>
   
   
     <a href="/2017/03/04/JavaScript-运行机制-q/" id="article-nav-older" class="article-nav-link-wrap">
@@ -428,7 +438,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习JavaScript数据结构与算法</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构与算法</a>
               </li>
              
               <li class="article-tag-list-item">
