@@ -6,15 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://littlehorsex.com">
-  <title>Javascript-算法-set hash | LittlehorseX</title>
+  <title>Javascript-算法-set map | LittlehorseX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="Javascript-算法-set hash">
-<meta property="og:url" content="http://littlehorsex.com/2017/03/17/Javascript-算法-set-hash/index.html">
+  <meta name="description" content="set：类似于数组，但所有成员的值都是唯一的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript-算法-set map">
+<meta property="og:url" content="http://littlehorsex.com/2017/03/17/Javascript-算法-set-map/index.html">
 <meta property="og:site_name" content="LittlehorseX">
-<meta property="og:updated_time" content="2017-03-17T08:01:17.000Z">
+<meta property="og:description" content="set：类似于数组，但所有成员的值都是唯一的">
+<meta property="og:updated_time" content="2017-03-17T09:49:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Javascript-算法-set hash">
+<meta name="twitter:title" content="Javascript-算法-set map">
+<meta name="twitter:description" content="set：类似于数组，但所有成员的值都是唯一的">
   
     <link rel="alternative" href="/atom.xml" title="LittlehorseX" type="application/atom+xml">
   
@@ -149,19 +152,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Javascript-算法-set-hash" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Javascript-算法-set-map" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Javascript-算法-set hash
+      Javascript-算法-set map
     </h1>
   
 
         
-        <a href="/2017/03/17/Javascript-算法-set-hash/" class="archive-article-date">
+        <a href="/2017/03/17/Javascript-算法-set-map/" class="archive-article-date">
   	<time datetime="2017-03-17T07:54:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-17</time>
 </a>
         
@@ -169,7 +172,106 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <hr>
+<h4 id="set：类似于数组，但所有成员的值都是唯一的"><a href="#set：类似于数组，但所有成员的值都是唯一的" class="headerlink" title="set：类似于数组，但所有成员的值都是唯一的"></a>set：类似于数组，但所有成员的值都是唯一的</h4><a id="more"></a>
+<p>var set = new Set([1, 3]);<br>使用for of遍历<br>Array.from方法可以将set结构转为数组<br>Array.from(new Set(array))可以数组去重<br>[…new Set(array)]</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>set.add(value)</td>
+<td>添加某个值，返回set本身</td>
+</tr>
+<tr>
+<td>set.delete(value)</td>
+<td>删除某个值，返回布尔，表示是否删除成功</td>
+</tr>
+<tr>
+<td>set.has(value)</td>
+<td>返回boolean</td>
+</tr>
+<tr>
+<td>set.clear()</td>
+<td>清除所有成员</td>
+</tr>
+<tr>
+<td>set.keys()</td>
+<td></td>
+</tr>
+<tr>
+<td>set.values()</td>
+<td></td>
+</tr>
+<tr>
+<td>set.entries()</td>
+<td>返回一个键值对的遍历器</td>
+</tr>
+<tr>
+<td>set.forEach()</td>
+<td></td>
+</tr>
+<tr>
+<td>new Set([…a, …b])</td>
+<td>并集</td>
+</tr>
+<tr>
+<td>new Set([…a].filter(x =&gt; b.has(x)))</td>
+<td>交集</td>
+</tr>
+<tr>
+<td>new Set([…a].filter(x =&gt; !b.has(x)))</td>
+<td>差集</td>
+</tr>
+</tbody>
+</table>
+<h4 id="map-键值对的集合"><a href="#map-键值对的集合" class="headerlink" title="map:键值对的集合"></a>map:键值对的集合</h4><p>var map = new Map();<br>map.set([‘a’], 555);<br>map.get([‘a’]);<br>上面的set和get方法，表面上针对同一个键，但实际上这两个值内存地址不一样，会返回undefined</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>map.set(key, value)</td>
+<td>添加某个值，返回map本身</td>
+</tr>
+<tr>
+<td>map.get(key)</td>
+<td>读取某个值</td>
+</tr>
+<tr>
+<td>map.has(key)</td>
+<td></td>
+</tr>
+<tr>
+<td>map.delete(key)</td>
+<td>删除某个值</td>
+</tr>
+<tr>
+<td>map.keys()</td>
+<td></td>
+</tr>
+<tr>
+<td>map.values()</td>
+<td></td>
+</tr>
+<tr>
+<td>map.entries()</td>
+<td>返回一个键值对的遍历器</td>
+</tr>
+<tr>
+<td>set.forEach()</td>
+</tr>
+</tbody>
+</table>
+
       
 
       
@@ -177,6 +279,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
