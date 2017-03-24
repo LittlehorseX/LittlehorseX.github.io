@@ -6,24 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://littlehorsex.com">
-  <title>TwoDogZi之旅 | LittlehorseX</title>
+  <title>RXJS----Operators操作符 | LittlehorseX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="吃
-已完成铁板自助潮汕牛肉火锅
-待吃海鲜自助虾吃虾涮日本料理">
+  <meta name="description" content="RxJS如此强大的原因正是源自于它的操作符，即便可观察对象扮演着根基的角色。 操作符使得复杂的异步代码轻松的以声明的方式容易地组成。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TwoDogZi之旅">
-<meta property="og:url" content="http://littlehorsex.com/2017/03/03/TwoDogZi之旅/index.html">
+<meta property="og:title" content="RXJS----Operators操作符">
+<meta property="og:url" content="http://littlehorsex.com/2017/03/24/RXJS-Operators操作符/index.html">
 <meta property="og:site_name" content="LittlehorseX">
-<meta property="og:description" content="吃
-已完成铁板自助潮汕牛肉火锅
-待吃海鲜自助虾吃虾涮日本料理">
-<meta property="og:updated_time" content="2017-03-04T11:28:51.000Z">
+<meta property="og:description" content="RxJS如此强大的原因正是源自于它的操作符，即便可观察对象扮演着根基的角色。 操作符使得复杂的异步代码轻松的以声明的方式容易地组成。">
+<meta property="og:image" content="https://buctwbzs.gitbooks.io/rxjs/content/assets/1.png">
+<meta property="og:updated_time" content="2017-03-24T14:46:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TwoDogZi之旅">
-<meta name="twitter:description" content="吃
-已完成铁板自助潮汕牛肉火锅
-待吃海鲜自助虾吃虾涮日本料理">
+<meta name="twitter:title" content="RXJS----Operators操作符">
+<meta name="twitter:description" content="RxJS如此强大的原因正是源自于它的操作符，即便可观察对象扮演着根基的角色。 操作符使得复杂的异步代码轻松的以声明的方式容易地组成。">
+<meta name="twitter:image" content="https://buctwbzs.gitbooks.io/rxjs/content/assets/1.png">
   
     <link rel="alternative" href="/atom.xml" title="LittlehorseX" type="application/atom+xml">
   
@@ -158,31 +154,59 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-TwoDogZi之旅" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-RXJS-Operators操作符" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      TwoDogZi之旅
+      RXJS----Operators操作符
     </h1>
   
 
         
-        <a href="/2017/03/03/TwoDogZi之旅/" class="archive-article-date">
-  	<time datetime="2017-03-03T06:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-03</time>
+        <a href="/2017/03/24/RXJS-Operators操作符/" class="archive-article-date">
+  	<time datetime="2017-03-24T13:24:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h3 id="吃"><a href="#吃" class="headerlink" title="吃"></a>吃</h3><blockquote>
-<h5 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h5><p>铁板自助<br>潮汕牛肉火锅</p>
-<h5 id="待吃"><a href="#待吃" class="headerlink" title="待吃"></a>待吃</h5><p>海鲜自助<br>虾吃虾涮<br>日本料理</p>
+        <p>RxJS如此强大的原因正是源自于它的操作符，即便可观察对象扮演着根基的角色。 操作符使得复杂的异步代码轻松的以声明的方式容易地组成。</p>
+<a id="more"></a>
+<h2 id="什么是操作符？"><a href="#什么是操作符？" class="headerlink" title="什么是操作符？"></a>什么是操作符？</h2><p>操作符是可观察对象上定义的方法，例如.map(…),.filter(…),.merge(…)，等等。当他们被调用，并不会去改变当前存在的可观察对象实例。相反，他们返回一个新的可观察对象，而且新返回的subscription订阅对象逻辑上基于调用他们的观察对象。</p>
+<blockquote>
+<p>每一个操作符都是基于当前可观察对象创建一个新的可观察对象的函数。这是一个单纯无害的操作:之前的可观察对象仍然保持不变。</p>
 </blockquote>
+<p>一个操作符本质上是一个将某个可观察对象作为输入然后输出另一个可观察对象的纯函数。对输出的新的可观察对象进行订阅的同时也会订阅作为输入的那个可观察对象。下面的例子，我们创建一个自定义的运算符函数，将从作为输入的可观察对象的每个值乘以10.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiplyByTen</span>(<span class="params">input</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> output =Rx.Observable.create(<span class="function"><span class="keyword">function</span>(<span class="params">observer</span>)</span>&#123;</div><div class="line">    input.subscribe(&#123;</div><div class="line">      <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> observer.next(<span class="number">10</span>*v),</div><div class="line">      <span class="attr">error</span>: <span class="function">(<span class="params">err</span>) =&gt;</span> observer.error(err),</div><div class="line">      <span class="attr">complete</span>: <span class="function"><span class="params">()</span> =&gt;</span> observer.complete()</div><div class="line">    &#125;);</div><div class="line">  &#125;);</div><div class="line">  <span class="keyword">return</span> output;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> input = Rx.Observable.from([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]);</div><div class="line"><span class="keyword">var</span> output = multiplyByTen(input);</div><div class="line">output.subscribe(<span class="function"><span class="params">x</span>=&gt;</span><span class="built_in">console</span>.log(x));</div></pre></td></tr></table></figure>
+<p>输出如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="number">10</span></div><div class="line"><span class="number">20</span></div><div class="line"><span class="number">30</span></div><div class="line"><span class="number">40</span></div></pre></td></tr></table></figure>
+<p>注意一下我们对output的订阅导致了作为输入的可观察对象也被订阅了。我们称这种现象为”操作符的订阅链”。</p>
+<h2 id="实例操作符-instance-operator-VS静态操作符-static-operator"><a href="#实例操作符-instance-operator-VS静态操作符-static-operator" class="headerlink" title="实例操作符(instance operator)VS静态操作符(static operator)"></a>实例操作符(instance operator)VS静态操作符(static operator)</h2><p>什么是实例操作符？通常，当引用运算符，我们假设是来自可观察对象实例的运算符。作为示例，如果multiplyByTen一个官方库中的操作符，那它大概是下面的样子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Rx.Observable.prototype.multiplyByTen = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> input=<span class="keyword">this</span>;</div><div class="line">  <span class="keyword">return</span> Rx.Observable.create(<span class="function"><span class="keyword">function</span> <span class="title">subscribe</span>(<span class="params">observer</span>)</span>&#123;</div><div class="line">    input.subscribe(&#123;</div><div class="line">      <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> observer.next(<span class="number">10</span>*v),</div><div class="line">      <span class="attr">error</span>: <span class="function">(<span class="params">err</span>) =&gt;</span> observer.error(err),</div><div class="line">      <span class="attr">complete</span>: <span class="function"><span class="params">()</span> =&gt;</span> observer.complete()</div><div class="line">    &#125;);</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>译者注:考虑到可能会有些刚接触的人不太理解。上面的代码是这样的，操作符定义在可观察对象的原型对象上，如果某个可观察对象调用这个方法，input首先取得作为输入的该可观察对象的引用(后面会在闭包里用到)，然后该方法返回一个由create方法创建的可观察对象，也就是作为输出的可观察对象。而input.subscribe({…})是对input进行订阅。</p>
+<blockquote>
+<p>实例操作符是使用this关键词来推演出”输入可观察对象”是神马东东</p>
+</blockquote>
+<p>注意input并不是作为函数的参数，而是作为this所指代的那个对象。下面是我们如何使用这个操作符:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> observable = Rx.Observable.from([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]).multiplyByTen();</div><div class="line">observable.subscribe(<span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(x));</div></pre></td></tr></table></figure>
+<p>什么是静态操作符？不同于实力操作符，静态操作符是直接定义在类上的。一个静态操作符并不在其内部使用this，而是完全依赖于它的参数。</p>
+<blockquote>
+<p>静态操作符是定义在类上的函数，通常被用于从头重新创建一个可观察对象。</p>
+</blockquote>
+<p>最常规的静态操作符是被称作构造操作符(Creation Operators，原谅我如此翻译，总是隐隐觉得很合适~)。不同于将一个输入的可观察对象转换成一个输出的可观察对象，它们仅接收一个非可观察对象作为参数，比如一个数字，然后构造出一个可观察对象。<br>一个静态操作符的典型例子是interval函数。它接收一个数字(而不是一个可观察对象)作为输入的参数，然后到一个可观察对象作为输出。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> observable = Rx.Observable.intervable(<span class="number">1000</span>)<span class="comment">//1000毫秒</span></div></pre></td></tr></table></figure>
+<p>另一个构造操作符是create,我们在之前的例子中曾大量使用，一些合并操作符可能是静态的，例如:merge,combineLatest,concat,等等。将这些操作符声明为静态的是有意义的，因为他们接收多个可观察对象作为参数，而不是一个，示例如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> observable1 = Rx.Observable.interval(<span class="number">1000</span>);</div><div class="line"><span class="keyword">var</span> observable2 = Rx.Observable.interval(<span class="number">400</span>);</div><div class="line"><span class="keyword">var</span> merged = Rx.Observable.merge(observable1, observable2);</div></pre></td></tr></table></figure>
+<h2 id="Marble-diagrams弹珠图标"><a href="#Marble-diagrams弹珠图标" class="headerlink" title="Marble diagrams弹珠图标"></a>Marble diagrams弹珠图标</h2><p>使用文字来形容操作符到底是怎样得工作模式终究还是有那么点力不从心。许多的操作符是和时间线密不可分的，在实际中他们可能需要对值进行延迟、采样、节流、或者抖动的发射。使用图表通常能够对他们的过程进行更好的表述。弹珠图标能够囊括作为输入的可观察对象、操作符、及其参数、作为输出的可观察对象来对操作符的工作方式进行生动的表示。</p>
+<blockquote>
+<p>在一个弹珠图标中，时间流向右侧，操作符描述了值(弹珠)在可观察对象执行时被怎样的发射。<br>下图你可以看到对整个弹珠图表流程的分析。</p>
+</blockquote>
+<p>[<img src="https://buctwbzs.gitbooks.io/rxjs/content/assets/1.png" alt="alt">]</p>
+<p>贯穿此后的文档，我们将会广泛的使用大理石图标来解释操作的工作过程。他们在其它的内容的表述上也是如此的的有用,例如在一个白板或者我们的单元测试中。</p>
 
       
 
@@ -196,7 +220,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">RXJS</a>
         		</li>
       		
 		</ul>
@@ -215,18 +239,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/03/04/JavaScript-运行机制-a/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/03/24/RXJS-Scheduler调度者/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          JavaScript 运行机制---a
+          RXJS----Scheduler调度者
         
       </div>
     </a>
   
   
-    <a href="/2017/03/03/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2017/03/24/RXJS-Subject主题/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RXJS----Subject主题</div>
       <i class="icon-circle-right"></i>
     </a>
   

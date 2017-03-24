@@ -6,24 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://littlehorsex.com">
-  <title>TwoDogZi之旅 | LittlehorseX</title>
+  <title>RXJS----Scheduler调度者 | LittlehorseX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="吃
-已完成铁板自助潮汕牛肉火锅
-待吃海鲜自助虾吃虾涮日本料理">
+  <meta name="description" content="什么是调度者？调度者控制着何时启动一个订阅和何时通知被发送。它有三个组件构成:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TwoDogZi之旅">
-<meta property="og:url" content="http://littlehorsex.com/2017/03/03/TwoDogZi之旅/index.html">
+<meta property="og:title" content="RXJS----Scheduler调度者">
+<meta property="og:url" content="http://littlehorsex.com/2017/03/24/RXJS-Scheduler调度者/index.html">
 <meta property="og:site_name" content="LittlehorseX">
-<meta property="og:description" content="吃
-已完成铁板自助潮汕牛肉火锅
-待吃海鲜自助虾吃虾涮日本料理">
-<meta property="og:updated_time" content="2017-03-04T11:28:51.000Z">
+<meta property="og:description" content="什么是调度者？调度者控制着何时启动一个订阅和何时通知被发送。它有三个组件构成:">
+<meta property="og:updated_time" content="2017-03-24T14:08:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TwoDogZi之旅">
-<meta name="twitter:description" content="吃
-已完成铁板自助潮汕牛肉火锅
-待吃海鲜自助虾吃虾涮日本料理">
+<meta name="twitter:title" content="RXJS----Scheduler调度者">
+<meta name="twitter:description" content="什么是调度者？调度者控制着何时启动一个订阅和何时通知被发送。它有三个组件构成:">
   
     <link rel="alternative" href="/atom.xml" title="LittlehorseX" type="application/atom+xml">
   
@@ -158,31 +152,70 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-TwoDogZi之旅" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-RXJS-Scheduler调度者" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      TwoDogZi之旅
+      RXJS----Scheduler调度者
     </h1>
   
 
         
-        <a href="/2017/03/03/TwoDogZi之旅/" class="archive-article-date">
-  	<time datetime="2017-03-03T06:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-03</time>
+        <a href="/2017/03/24/RXJS-Scheduler调度者/" class="archive-article-date">
+  	<time datetime="2017-03-24T13:45:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h3 id="吃"><a href="#吃" class="headerlink" title="吃"></a>吃</h3><blockquote>
-<h5 id="已完成"><a href="#已完成" class="headerlink" title="已完成"></a>已完成</h5><p>铁板自助<br>潮汕牛肉火锅</p>
-<h5 id="待吃"><a href="#待吃" class="headerlink" title="待吃"></a>待吃</h5><p>海鲜自助<br>虾吃虾涮<br>日本料理</p>
+        <p>什么是调度者？调度者控制着何时启动一个订阅和何时通知被发送。它有三个组件构成:</p>
+<a id="more"></a>
+<ul>
+<li><strong>一个调度者是一个数据结构。</strong>它知道如何根据优先级或其他标准存储和排列任务。</li>
+<li><strong>一个调度者是一个执行上下文。</strong>它表示何处何时任务被执行(例如: immediately(立即), or in another callback mechanism(回调机制) such as setTimeout or process.nextTick, or the animation frame)</li>
+<li><strong>一个调度者具有虚拟的时钟。</strong>它通过调度器上的getter方法now()提供了“时间”的概念。 在特定调度程序上调度的任务将仅仅遵守由该时钟表示的时间。</li>
+</ul>
+<blockquote>
+<p>调度者使得你可以确定可观察对象在什么执行上下文中给观察者发送通知</p>
 </blockquote>
+<p>下面的例子，我们使用常见的的可观察对象，它同步的发送三个数值1/2/3。使用observeOn操作符指定用于传递这些值的异步调度程序。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> observable = Rx.Observable.create(<span class="function"><span class="keyword">function</span> (<span class="params">observer</span>) </span>&#123;</div><div class="line">  observer.next(<span class="number">1</span>);</div><div class="line">  observer.next(<span class="number">2</span>);</div><div class="line">  observer.next(<span class="number">3</span>);</div><div class="line">  observer.complete();</div><div class="line">&#125;)</div><div class="line">.observeOn(Rx.Scheduler.async);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'just before subscribe'</span>);</div><div class="line">observable.subscribe(&#123;</div><div class="line">  <span class="attr">next</span>: <span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'got value '</span> + x),</div><div class="line">  <span class="attr">error</span>: <span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.error(<span class="string">'something wrong occurred: '</span> + err),</div><div class="line">  <span class="attr">complete</span>: <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'done'</span>),</div><div class="line">&#125;);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'just after subscribe'</span>);</div></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">just before subscribe</div><div class="line">just after subscribe</div><div class="line">got value <span class="number">1</span></div><div class="line">got value <span class="number">2</span></div><div class="line">got value <span class="number">3</span></div><div class="line">done</div></pre></td></tr></table></figure>
+<p>注意如何获取值…被发送在”just after subscribe “之后，这是不同于我们目前为止所看到的默认行为。 这是因为observeOn（Rx.Scheduler.async）在Observable.create和最终的Observer之间引入了一个代理Observer。 让我们重命名一些标识符，使这个重要的区别在下面代码中显而易见：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> observable = Rx.Observable.create(<span class="function"><span class="keyword">function</span> (<span class="params">proxyObserver</span>) </span>&#123;</div><div class="line">  proxyObserver.next(<span class="number">1</span>);</div><div class="line">  proxyObserver.next(<span class="number">2</span>);</div><div class="line">  proxyObserver.next(<span class="number">3</span>);</div><div class="line">  proxyObserver.complete();</div><div class="line">&#125;)</div><div class="line">.observeOn(Rx.Scheduler.async);</div><div class="line"></div><div class="line"><span class="keyword">var</span> finalObserver = &#123;</div><div class="line">  <span class="attr">next</span>: <span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'got value '</span> + x),</div><div class="line">  <span class="attr">error</span>: <span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.error(<span class="string">'something wrong occurred: '</span> + err),</div><div class="line">  <span class="attr">complete</span>: <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'done'</span>),</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'just before subscribe'</span>);</div><div class="line">observable.subscribe(finalObserver);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'just after subscribe'</span>);</div><div class="line">proxyObserver在 observeOn(Rx.Scheduler.async)被创建，它的next通知函数大约如下:</div><div class="line"><span class="keyword">var</span> proxyObserver = &#123;</div><div class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">val</span>) =&gt;</span> &#123;</div><div class="line">    Rx.Scheduler.async.schedule(</div><div class="line">      <span class="function">(<span class="params">x</span>) =&gt;</span> finalObserver.next(x),</div><div class="line">      <span class="number">0</span> <span class="comment">/* delay */</span>,</div><div class="line">      val <span class="comment">/* will be the x for the function above */</span></div><div class="line">    );</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Async调度操作符和setTimeout或setInterval一起起作用，虽然延期可能是0。通常情况下，在js中，setTimeout(fn, 0)被当作使fn在下一个时间循环迭代中最早执行。这就解释了为什么got value 1在just after subscribe之后执行。</p>
+<h2 id="scheduler-Types"><a href="#scheduler-Types" class="headerlink" title="scheduler Types"></a>scheduler Types</h2><table>
+<thead>
+<tr>
+<th>Scheduler</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>null</td>
+<td>通过不传递任何调度程序，通知被同步和递归地传递。 用于恒定时操作或尾递归操作。</td>
+</tr>
+<tr>
+<td>Rx.Scheduler.queue</td>
+<td>Schedules on a queue in the current event frame (trampoline scheduler). Use this for iteration operations.</td>
+</tr>
+<tr>
+<td>Rx.Scheduler.asap</td>
+<td>Schedules on the micro task queue, which uses the fastest transport mechanism available, either Node.js’ process.nextTick() or Web Worker MessageChannel or setTimeout or others. Use this for asynchronous conversions.</td>
+</tr>
+<tr>
+<td>Rx.Scheduler.async</td>
+<td>Schedules work with setInterval. Use this for time-based operations.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>翻译不全</strong></p>
 
       
 
@@ -196,7 +229,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">RXJS</a>
         		</li>
       		
 		</ul>
@@ -215,18 +248,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/03/04/JavaScript-运行机制-a/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JavaScript 运行机制---a
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/03/03/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2017/03/24/RXJS-Operators操作符/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RXJS----Operators操作符</div>
       <i class="icon-circle-right"></i>
     </a>
   
