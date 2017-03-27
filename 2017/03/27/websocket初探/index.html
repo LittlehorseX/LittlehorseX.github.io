@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://littlehorsex.com">
-  <title>Archives: 2017 | LittlehorseX</title>
+  <title>websocket初探 | LittlehorseX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LittlehorseX">
-<meta property="og:url" content="http://littlehorsex.com/archives/2017/page/2/index.html">
+  <meta name="description" content="websocket诞生背景当我们的客户端需要和服务器交互数据时，我们通常用轮询来请求数据，客户端以一定的时间间隔向服务端发出请求，以频繁请求的方式来保持客户端和服务器端的同步。这样频繁的请求中，服务端数据很可能没有更新，从而会带来很多无谓的网络传输，所以这是一种非常低效的实时方案。而通过websocket，浏览器通过JavaScript向服务器发出建立WebSocket连接的请求，连接建立以后，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="websocket初探">
+<meta property="og:url" content="http://littlehorsex.com/2017/03/27/websocket初探/index.html">
 <meta property="og:site_name" content="LittlehorseX">
+<meta property="og:description" content="websocket诞生背景当我们的客户端需要和服务器交互数据时，我们通常用轮询来请求数据，客户端以一定的时间间隔向服务端发出请求，以频繁请求的方式来保持客户端和服务器端的同步。这样频繁的请求中，服务端数据很可能没有更新，从而会带来很多无谓的网络传输，所以这是一种非常低效的实时方案。而通过websocket，浏览器通过JavaScript向服务器发出建立WebSocket连接的请求，连接建立以后，">
+<meta property="og:updated_time" content="2017-03-27T13:43:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LittlehorseX">
+<meta name="twitter:title" content="websocket初探">
+<meta name="twitter:description" content="websocket诞生背景当我们的客户端需要和服务器交互数据时，我们通常用轮询来请求数据，客户端以一定的时间间隔向服务端发出请求，以频繁请求的方式来保持客户端和服务器端的同步。这样频繁的请求中，服务端数据很可能没有更新，从而会带来很多无谓的网络传输，所以这是一种非常低效的实时方案。而通过websocket，浏览器通过JavaScript向服务器发出建立WebSocket连接的请求，连接建立以后，">
   
     <link rel="alternative" href="/atom.xml" title="LittlehorseX" type="application/atom+xml">
   
@@ -148,254 +152,151 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-websocket初探" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      websocket初探
+    </h1>
+  
+
+        
+        <a href="/2017/03/27/websocket初探/" class="archive-article-date">
+  	<time datetime="2017-03-27T11:21:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-27</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="websocket诞生背景"><a href="#websocket诞生背景" class="headerlink" title="websocket诞生背景"></a>websocket诞生背景</h3><p>当我们的客户端需要和服务器交互数据时，我们通常用轮询来请求数据，客户端以一定的时间间隔向服务端发出请求，以频繁请求的方式来保持客户端和服务器端的同步。这样频繁的请求中，服务端数据很可能没有更新，从而会带来很多无谓的网络传输，所以这是一种非常低效的实时方案。<br>而通过websocket，浏览器通过JavaScript向服务器发出建立WebSocket连接的请求，连接建立以后，客户端和服务器端就可以通过TCP连接直接交换数据，当服务器数据更新后，向客户端推送数据，避免了不必要的网络传输浪费。</p>
+<a id="more"></a>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> WebSocket(url);</div><div class="line">ws.onclose = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//...</span></div><div class="line">&#125;;</div><div class="line">ws.onerror = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//...</span></div><div class="line">&#125;;    </div><div class="line">ws.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">   <span class="comment">//...</span></div><div class="line">&#125;;</div><div class="line">ws.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</div><div class="line">   <span class="comment">//...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果希望websocket连接一直保持，我们会在close或者error上绑定重新连接方法。这样一般正常情况下失去连接时，触发onclose方法，我们就能执行重连了。</p>
+<h3 id="心跳重连缘由"><a href="#心跳重连缘由" class="headerlink" title="心跳重连缘由"></a>心跳重连缘由</h3><p>在使用websocket过程中，可能会出现网络断开的情况，比如信号不好，或者网络临时性关闭，这时候websocket的连接已经断开，</p>
+<p>而浏览器不会执行websocket 的 onclose方法，我们无法知道是否断开连接，也就无法进行重连操作。</p>
+<p>如果当前发送websocket数据到后端，一旦请求超时，onclose便会执行，这时候便可进行绑定好的重连操作。</p>
+<p>因此websocket心跳重连就应运而生。</p>
+<h3 id="心跳重连简单实现"><a href="#心跳重连简单实现" class="headerlink" title="心跳重连简单实现"></a>心跳重连简单实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> heartCheck = &#123;</div><div class="line">    <span class="attr">timeout</span>: <span class="number">60000</span>,<span class="comment">//60ms</span></div><div class="line">    timeoutObj: <span class="literal">null</span>,</div><div class="line">    <span class="attr">reset</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        clearTimeout(<span class="keyword">this</span>.timeoutObj);</div><div class="line">　　　　 <span class="keyword">this</span>.start();</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">start</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">this</span>.timeoutObj = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            ws.send(<span class="string">"HeartBeat"</span>, <span class="string">"beat"</span>);</div><div class="line">        &#125;, <span class="keyword">this</span>.timeout)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ws.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">   heartCheck.start();</div><div class="line">&#125;;</div><div class="line">ws.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</div><div class="line">    heartCheck.reset();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当onopen也就是连接上时，我们便开始start计时，如果在定时时间范围内，onmessage获取到了服务器的消息，我们就重置倒计时，</p>
+<p>所以在距离上次从服务器获取到消息，闲置60秒之后我们才会心跳检测，这个检测时间可以自己根据自身情况设定。</p>
+<p>当心跳检测send执行之后，如果当前websocket是断开状态，发送超时之后，onclose方法便会被执行，重连也执行了。</p>
+<p>如此一来，我们判断前端主动断开ws的心跳检测就实现了。为什么说是前端主动断开，因为当前这种情况主要是通过前端ws的事件来判断的，后面说后端主动断开的情况。</p>
+<h3 id="解决多端浏览器访问问题"><a href="#解决多端浏览器访问问题" class="headerlink" title="解决多端浏览器访问问题"></a>解决多端浏览器访问问题</h3><p>多端浏览器发送的ws链接不同，以此区分，但一个浏览器的多个tab页面，ws链接一样，这样会出现一个服务器对应多个客户端的情况，下面介绍解决方案。</p>
+<h3 id="解决多端浏览器访问问题-1"><a href="#解决多端浏览器访问问题-1" class="headerlink" title="解决多端浏览器访问问题"></a>解决多端浏览器访问问题</h3><p>多个tab之间使用领导者思想，始终只保留一个leader作为主页面，即websocket链接的发起者，具体实现思路如下：</p>
+<blockquote>
+<p>1.每个页面加载时，都保存当前时间作为当前页面的页面ID<br>2.设置一个1s的定时器，定时检测localstorage<br>3.若发现localstorage中不存在leaderID，则表示当前页面不存在leader，则把自己的ID，以及当前时间分别存在localstorage的leaderID和leaderTime中<br>4.页面设置leader后，定时器定时检查当前leaderID是否与自己的id一致，如果一致，则修改leaderTime为当前时间，表示leader页面尚未关闭<br>5.若leaderTime与当前时间间隔超过3s，则表示leader页面已死亡，需要有一个新leader诞生<br>6.谁最先发现了前任leader已死，谁就自然成为新任leader，将自己的ID存为leaderID，且更新当前时间为leaderTime，表示当前时间存在leader</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">const id = Date.now();</div><div class="line"></div><div class="line">setInterval(() =&gt; &#123;</div><div class="line">  if (!localStorage.leaderTime) &#123;</div><div class="line">    localStorage.setItem('leaderId', id);</div><div class="line">    localStorage.setItem('leaderTime', Date.now());</div><div class="line">  &#125; else if (Date.now() - localStorage.leaderTime &gt; 3000) &#123;</div><div class="line">    console.log('dead');</div><div class="line">    localStorage.setItem('leaderId', id);</div><div class="line">    localStorage.setItem('leaderTime', Date.now());</div><div class="line">    isLeader();</div><div class="line">  &#125; else if (parseInt(localStorage.leaderId) === id) &#123;</div><div class="line">    console.log('I am leader’);</div><div class="line">    localStorage.setItem('leaderTime', Date.now());</div><div class="line">  &#125;</div><div class="line">&#125;, 1000);</div></pre></td></tr></table></figure>
+<h3 id="数据显示"><a href="#数据显示" class="headerlink" title="数据显示"></a>数据显示</h3><p>ws建立成功后，接下来就是显示数据的部分，由于情况较多，采用图表展示：</p>
+<table>
+<thead>
+<tr>
+<th>数字：</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leader  新页面</td>
+<td>接收数据时 dispatch(setCount()), 使用定时器this.props.dispatch(fetchCount())显示数据</td>
+</tr>
+<tr>
+<td>子页面   新页面</td>
+<td>接收数据时 localStorage.setItem(‘warningCount’, <code>${obj.req_args.apns.aps.alert}-${Date.now()}</code>); <br> 使用window.addEventListener(‘storage’, e =&gt; { 触发dispatch显示数据 <br> 之所以加上时间戳是因为当localStorage连续保存相同数据时，页面不再触发storage事件</td>
+</tr>
+<tr>
+<td>leader  旧页面</td>
+<td>接收数据时 window.warningCount = obj.req_args.apns.aps.alert; <br> 在旧页面使用this.setState({num: window.warningCount})显示数据</td>
+</tr>
+<tr>
+<td>子页面   旧页面</td>
+<td>同新页面的子页面，但要在旧页面代码中写storage函数，因为要使用setstate显示数据</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>文字：</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leader  新页面</td>
+<td>接收数据时 notification.warning({ 并显示数据</td>
+</tr>
+<tr>
+<td>子页面   新页面</td>
+<td>接收数据时 localStorage.setItem(‘warningMessage’, <code>${obj.req_args.apns.aps.alert}-${Date.now()}</code>); <br> 使用window.addEventListener(‘storage’, e =&gt; { 触发notification显示数据</td>
+</tr>
+<tr>
+<td>leader  旧页面</td>
+<td>同 leader  新页面</td>
+</tr>
+<tr>
+<td>子页面   旧页面</td>
+<td>同 子页面   新页面</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注：保存localStorage的主页面不会触发storage事件</p>
+</blockquote>
+<h3 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; notification &#125; <span class="keyword">from</span> <span class="string">'antd'</span>;</div><div class="line"><span class="keyword">import</span> callApi <span class="keyword">from</span> <span class="string">'scripts/utils/resolve-data-source'</span>;</div><div class="line"><span class="keyword">import</span> configureStores <span class="keyword">from</span> <span class="string">'scripts/stores/configureStores'</span>;</div><div class="line"><span class="keyword">import</span> &#123; setCount &#125; <span class="keyword">from</span> <span class="string">'scripts/actions/prewarning'</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> dispatch = configureStores.dispatch;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isLeader</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  callApi(&#123;</div><div class="line">    <span class="attr">url</span>: <span class="string">'/scmmain/bind'</span>,</div><div class="line">    <span class="attr">method</span>: <span class="string">'GET'</span>,</div><div class="line">  &#125;).then(<span class="function">(<span class="params">buildWs</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">if</span> (buildWs) &#123;</div><div class="line">      <span class="keyword">const</span> url = <span class="string">`ws://10.19.160.118:8344/websocket?appid=1006&amp;cuid=<span class="subst">$&#123;buildWs&#125;</span>&amp;os=browser`</span>;</div><div class="line">      <span class="keyword">let</span> ws;</div><div class="line">      <span class="keyword">const</span> heartCheck = &#123;</div><div class="line">        <span class="attr">timeoutObj</span>: <span class="literal">null</span>,</div><div class="line">        <span class="attr">start</span>: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">          heartCheck.timeoutObj = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">            ws.send(<span class="built_in">JSON</span>.stringify(&#123;</div><div class="line">              <span class="attr">appid</span>: <span class="string">'1006'</span>,</div><div class="line">              <span class="attr">req_id</span>: <span class="string">'10'</span>,</div><div class="line">              <span class="attr">req_type</span>: <span class="string">'5'</span>,</div><div class="line">              <span class="attr">ver</span>: <span class="string">'1.0'</span>,</div><div class="line">            &#125;));</div><div class="line">          &#125;, <span class="number">10000</span>);</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">reset</span>: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">          clearTimeout(heartCheck.timeoutObj);</div><div class="line">          heartCheck.start();</div><div class="line">        &#125;,</div><div class="line">      &#125;;</div><div class="line">      <span class="keyword">const</span> eventHandlers = &#123;</div><div class="line">        <span class="attr">onopen</span>: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">          heartCheck.start();</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">onmessage</span>: <span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">          heartCheck.reset();</div><div class="line">          <span class="keyword">const</span> obj = <span class="built_in">JSON</span>.parse(e.data);</div><div class="line">          <span class="built_in">console</span>.log(<span class="string">'alert = '</span>, obj.req_args.apns.aps.alert);</div><div class="line">          <span class="keyword">if</span> (obj.req_args.apns.aps.title === <span class="string">'库存不足报警'</span>) &#123;</div><div class="line">            <span class="built_in">window</span>.warningCount = obj.req_args.apns.aps.alert;</div><div class="line">            localStorage.setItem(<span class="string">'warningCount'</span>, <span class="string">`<span class="subst">$&#123;obj.req_args.apns.aps.alert&#125;</span>-<span class="subst">$&#123;<span class="built_in">Date</span>.now()&#125;</span>`</span>);</div><div class="line">            dispatch(setCount(obj.req_args.apns.aps.alert));</div><div class="line">          &#125; <span class="keyword">else</span> &#123;</div><div class="line">            localStorage.setItem(<span class="string">'warningMessage'</span>, <span class="string">`<span class="subst">$&#123;obj.req_args.apns.aps.alert&#125;</span>-<span class="subst">$&#123;<span class="built_in">Date</span>.now()&#125;</span>`</span>);</div><div class="line">            notification.warning(&#123;</div><div class="line">              <span class="attr">message</span>: obj.req_args.apns.aps.alert,</div><div class="line">              <span class="attr">duration</span>: <span class="number">10</span>,</div><div class="line">            &#125;);</div><div class="line">          &#125;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">onclose</span>: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">          <span class="built_in">console</span>.log(<span class="string">'closing...'</span>);</div><div class="line">          ws = <span class="keyword">new</span> WebSocket(url);</div><div class="line">          <span class="built_in">Object</span>.assign(ws, eventHandlers);</div><div class="line">        &#125;,</div><div class="line">      &#125;;</div><div class="line">      ws = <span class="keyword">new</span> WebSocket(url);</div><div class="line">      <span class="built_in">Object</span>.assign(ws, eventHandlers);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      localStorage.setItem(<span class="string">'warningMessage'</span>, <span class="string">'绑定设备失败，无法接收推送消息'</span>);</div><div class="line">      notification.warning(&#123;</div><div class="line">        <span class="attr">message</span>: <span class="string">'绑定设备失败，无法接收推送消息'</span>,</div><div class="line">        <span class="attr">duration</span>: <span class="number">10</span>,</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> id = <span class="built_in">Date</span>.now();</div><div class="line">setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="keyword">if</span> (!localStorage.leaderTime) &#123;</div><div class="line">    localStorage.setItem(<span class="string">'leaderId'</span>, id);</div><div class="line">    localStorage.setItem(<span class="string">'leaderTime'</span>, <span class="built_in">Date</span>.now());</div><div class="line">    isLeader();</div><div class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">Date</span>.now() - localStorage.leaderTime &gt; <span class="number">3000</span>) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'dead'</span>);</div><div class="line">    localStorage.setItem(<span class="string">'leaderId'</span>, id);</div><div class="line">    localStorage.setItem(<span class="string">'leaderTime'</span>, <span class="built_in">Date</span>.now());</div><div class="line">    isLeader();</div><div class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">parseInt</span>(localStorage.leaderId, <span class="number">10</span>) === id) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'I am leader'</span>);</div><div class="line">    localStorage.setItem(<span class="string">'leaderTime'</span>, <span class="built_in">Date</span>.now());</div><div class="line">  &#125;</div><div class="line">&#125;, <span class="number">1000</span>);</div><div class="line"></div><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'storage'</span>, e =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (e.key === <span class="string">'warningMessage'</span>) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'warningMessage = '</span>, e.newValue);</div><div class="line">    notification.warning(&#123;</div><div class="line">      <span class="attr">message</span>: e.newValue.split(<span class="string">'-'</span>)[<span class="number">0</span>],</div><div class="line">      <span class="attr">duration</span>: <span class="number">10</span>,</div><div class="line">    &#125;);</div><div class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e.key === <span class="string">'warningCount'</span>) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'warningCount = '</span>, e.newValue);</div><div class="line">    dispatch(setCount(e.newValue.split(<span class="string">'-'</span>)[<span class="number">0</span>]));</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/16/Javascript-算法-linked-list/" class="archive-article-date">
-  	<time datetime="2017-03-16T13:53:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/16/Javascript-算法-linked-list/">Javascript-算法-linked list</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">websocket</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/16/Javascript-算法-array/" class="archive-article-date">
-  	<time datetime="2017-03-16T12:11:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-16</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/16/Javascript-算法-array/">Javascript-算法-array</a>
-    </h1>
+  
+    <a href="/2017/03/24/RXJS-Scheduler调度者/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RXJS----Scheduler调度者</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/04/JavaScript-运行机制-q/" class="archive-article-date">
-  	<time datetime="2017-03-04T06:05:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/04/JavaScript-运行机制-q/">JavaScript 运行机制---q</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">习得</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/04/JavaScript-运行机制-a/" class="archive-article-date">
-  	<time datetime="2017-03-04T06:05:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/04/JavaScript-运行机制-a/">JavaScript 运行机制---a</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">习得</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/03/TwoDogZi之旅/" class="archive-article-date">
-  	<time datetime="2017-03-03T06:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/03/TwoDogZi之旅/">TwoDogZi之旅</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/03/hello-world/" class="archive-article-date">
-  	<time datetime="2017-03-03T05:57:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/03/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">init</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2017/">&laquo; Prev</a><a class="page-number" href="/archives/2017/">1</a><span class="page-number current">2</span>
-    </nav>
-  
 
 
           </div>
@@ -418,8 +319,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
