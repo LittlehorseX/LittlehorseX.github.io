@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://littlehorsex.com">
-  <title>Javascript-算法-tree | LittlehorseX</title>
+  <title>Raft | LittlehorseX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="Javascript-算法-tree">
-<meta property="og:url" content="http://littlehorsex.com/2017/03/17/Javascript-算法-tree/index.html">
+  <meta name="description" content="Raft 是一种用来管理日志复制的一致性算法可用性：避免单点故障性能：多机器提供相同服务分两阶段实现：Leader选举 和 日志复制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Raft">
+<meta property="og:url" content="http://littlehorsex.com/2017/04/19/Raft/index.html">
 <meta property="og:site_name" content="LittlehorseX">
-<meta property="og:updated_time" content="2017-04-19T03:25:19.000Z">
+<meta property="og:description" content="Raft 是一种用来管理日志复制的一致性算法可用性：避免单点故障性能：多机器提供相同服务分两阶段实现：Leader选举 和 日志复制">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-0758bfb601f9f39ee3f18bc170f55b94_b.jpg">
+<meta property="og:updated_time" content="2017-04-19T04:06:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Javascript-算法-tree">
+<meta name="twitter:title" content="Raft">
+<meta name="twitter:description" content="Raft 是一种用来管理日志复制的一致性算法可用性：避免单点故障性能：多机器提供相同服务分两阶段实现：Leader选举 和 日志复制">
+<meta name="twitter:image" content="https://pic1.zhimg.com/v2-0758bfb601f9f39ee3f18bc170f55b94_b.jpg">
   
     <link rel="alternative" href="/atom.xml" title="LittlehorseX" type="application/atom+xml">
   
@@ -149,27 +154,50 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Javascript-算法-tree" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Raft" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Javascript-算法-tree
+      Raft
     </h1>
   
 
         
-        <a href="/2017/03/17/Javascript-算法-tree/" class="archive-article-date">
-  	<time datetime="2017-03-17T07:53:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-17</time>
+        <a href="/2017/04/19/Raft/" class="archive-article-date">
+  	<time datetime="2017-04-19T03:24:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>Raft 是一种用来管理日志复制的一致性算法<br>可用性：避免单点故障<br>性能：多机器提供相同服务<br>分两阶段实现：Leader选举 和 日志复制</p>
+<a id="more"></a>
+<h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h3><p>为便于后面的理解或查阅，把主要概念提出来，因此有些介绍会和后面重复</p>
+<h4 id="1-1-基本角色"><a href="#1-1-基本角色" class="headerlink" title="1.1 基本角色"></a>1.1 基本角色</h4><p>每个服务器节点都处于这三种状态之一：follower 、 candidate 、leader 。</p>
+<p>Follower：每个节点最初都是follower，完全被动，不发出请求，响应leader和candidate的请求。<br>Candidate：候选者，用来选举出一个leader。<br>Leader：集群主节点，整个集群仅有一个leader节点可以存在。处理所有的客户端请求（如果一个客户端和follower通信，follower会将请求重定向给 leader），向其他节点周期性的发送心跳（不包含日志条目的 AppendEntries RPC）来维持自己的地位。</p>
+<p>follower，candidate，leader的升级序列，角色不会跨级别提升</p>
+<p><img src="https://pic1.zhimg.com/v2-0758bfb601f9f39ee3f18bc170f55b94_b.jpg" alt="节点角色转变"></p>
+<h4 id="1-2-两种RPC"><a href="#1-2-两种RPC" class="headerlink" title="1.2 两种RPC"></a>1.2 两种RPC</h4><p>服务器节点之间使用 RPC 进行通信。</p>
+<p>请求投票（RequestVote） RPC ： 由 candidate 在选举期间发起，发送给每个节点<br>追加条目（AppendEntries）RPC ： 由 leader 发起，用来复制日志和提供一种心跳机制</p>
+<h4 id="1-3-两种timeout"><a href="#1-3-两种timeout" class="headerlink" title="1.3 两种timeout"></a>1.3 两种timeout</h4><p>election timeout：每个follower若在election timeout中未收到RPC，则成为candidate，并发出投票，在这段时间内收到半数以上投票则成为Leader<br>heartbeat timeout：用于Leader发送AppendEntries RPC心跳机制。</p>
+<h4 id="1-4-Term"><a href="#1-4-Term" class="headerlink" title="1.4 Term"></a>1.4 Term</h4><p>Term：一轮选举开始到下一轮选举开始则为一个term（任期）。</p>
+<h4 id="1-5-节点状态"><a href="#1-5-节点状态" class="headerlink" title="1.5 节点状态"></a>1.5 节点状态</h4><h3 id="2-Leader选举"><a href="#2-Leader选举" class="headerlink" title="2.Leader选举"></a>2.Leader选举</h3><p>每个节点最初都是follower，每个follower都有一个选举超时时间（election timeout），通常为150ms到300ms之间。如果一个节点在election timeout内没有接收到任何消息（来自 leader 或 candidate的RPC），它就认为系统中没有可用的 leader ，成为candidate，最终选举出新leader。</p>
+<p>开始一次选举过程，follower 先增加自己的当前任期号并且转换到 candidate 状态。然后投票给自己并且并行地向集群中的其他服务器节点发送 RequestVote RPC（让其他服务器节点投票给它）。每轮Term，每个节点按照先来先服务（first-come-first-served）的原则只能投一票，一个candidate得到大多数节点投票才能成为leader。Leader周期性向其他节点发送心跳（不包含日志条目的 AppendEntries RPC）来维持自己的地位。</p>
+<p>Candidate 会一直保持当前状态直到以下三件事情之一发生：(a) 它自己赢得了这次的选举——变为leader，(b) 其他的服务器节点成为 leader——变为follower ，(c) 一段时间之后没有任何获胜者——重新选举。</p>
+<p>如果有多个 follower 同时成为 candidate ，那么选票可能会被瓜分以至于没有 candidate 赢得过半的投票。当这种情况发生时，每一个候选人都会超时，通过增加当前任期号来开始一轮新的选举。每个 candidate 在开始一次选举的时候会重置一个随机的选举超时时间，防止在新的选举中再次发生选票瓜分情况，然后开始新一轮选举。</p>
+<h3 id="3-日志复制"><a href="#3-日志复制" class="headerlink" title="3.日志复制"></a>3.日志复制</h3><p>Leader 一旦被选举出来，就开始为客户端请求提供服务。客户端的每一个请求都包含一条将被复制状态机执行的指令。Leader 把该指令作为一个新的条目追加到日志中去，然后并行的发起 AppendEntries RPC 给其他的服务器，让它们复制该条目。当该条目被安全地复制（复制到过半的服务器上），该日志条目就会被提交，leader 会应用该条目到它的状态机中（状态机执行该指令，这种日志条目被称为已提交的）然后把执行的结果返回给客户端。同时，leader 日志中该日志条目之前的所有日志条目也都会被提交，包括由其他 leader 创建的条目。如果 follower 崩溃或者运行缓慢，或者网络丢包，leader会不断地重试 AppendEntries RPC（即使已经回复了客户端）直到所有的 follower 最终都存储了所有的日志条目(log entry)。</p>
+<p>每个日志条目存储一条状态机指令和 leader 收到该指令时的任期号。任期号用来检测多个日志副本之间的不一致情况。每个日志条目都有一个整数索引值来表明它在日志中的位置。</p>
+<p>AppendEntries RPC 执行一个简单的一致性检查。在发送 AppendEntries RPC 的时候，leader 会将前一个日志条目的索引位置和任期号包含在里面。如果 follower 在它的日志中找不到包含相同索引位置和任期号的条目，那么他就会拒绝该新的日志条目。</p>
+<p>正常操作期间，leader 和 follower 的日志保持一致，所以 AppendEntries RPC 的一致性检查从来不会失败。然而，leader 崩溃的情况会使日志处于不一致的状态（老的 leader 可能还没有完全复制它日志里的所有条目）。</p>
+<p>Follower 可能缺少一些在新 leader 中有的日志条目，也可能拥有一些新 leader 没有的日志条目，或者同时发生。缺失或多出日志条目的情况可能会涉及到多个任期。</p>
+<p>在 Raft 算法中，leader 通过强制 follower 复制它的日志来解决不一致的问题。这意味着 follower 中跟 leader 冲突的日志条目会被 leader 的日志条目覆盖。</p>
+<p>要使得 follower 的日志跟自己一致，leader 必须找到两者达成一致的最大的日志条目（索引最大），删除 follower 日志中从那个点之后的所有日志条目，并且将自己从那个点之后的所有日志条目发送给 follower 。所有的这些操作都发生在对 AppendEntries RPCs 中一致性检查的回复中。Leader 针对每一个 follower 都维护了一个 nextIndex ，表示 leader 要发送给 follower 的下一个日志条目的索引。当选出一个新 leader 时，该 leader 将所有 nextIndex 的值都初始化为自己最后一个日志条目的 index 加1。如果 follower 的日志和 leader 的不一致，那么下一次 AppendEntries RPC 中的一致性检查就会失败。在被 follower 拒绝之后，leaer 就会减小 nextIndex 值并重试 AppendEntries RPC 。最终 nextIndex 会在某个位置使得 leader 和 follower 的日志达成一致。此时，AppendEntries RPC 就会成功，将 follower 中跟 leader 冲突的日志条目全部删除然后追加 leader 中的日志条目（如果有需要追加的日志条目的话）。一旦 AppendEntries RPC 成功，follower 的日志就和 leader 一致，并且在该任期接下来的时间里保持一致。</p>
+<p>只要过半的服务器能正常运行，Raft 就能够接受，复制并应用新的日志条目；在正常情况下，新的日志条目可以在一个 RPC 来回中被复制给集群中的过半机器；并且单个运行慢的 follower 不会影响整体的性能。</p>
+
       
 
       
@@ -182,7 +210,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Raft 分布式一致 算法</a>
         		</li>
       		
 		</ul>
@@ -201,18 +229,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/03/17/Javascript-算法-set-map/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Javascript-算法-set map
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/03/16/Javascript-算法-linked-list/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Javascript-算法-linked list</div>
+    <a href="/2017/04/01/Paxos-Made-Simple/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Paxos Made Simple【翻译】</div>
       <i class="icon-circle-right"></i>
     </a>
   
